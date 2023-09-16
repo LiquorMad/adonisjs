@@ -1,15 +1,12 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
-import Partida from 'App/Models/Partida';
 import Resultado from 'App/Models/Resultado';
 //Profile
 export default class ResultadosController {
   public async index({response}: HttpContextContract) {
     try {
 
-      const partidas = await Partida
-      .query()
-      .preload('resultado')
-      return response.json(partidas);
+      const resultados = await Resultado.all();
+      return response.json(resultados);
     } catch (error) {
       
     }

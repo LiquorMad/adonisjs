@@ -2,25 +2,29 @@ import { DateTime } from 'luxon'
 //User
 import { 
   BaseModel, 
+  BelongsTo, 
+  belongsTo, 
   column, 
-  hasOne,
-  HasOne
 } from '@ioc:Adonis/Lucid/Orm'
-import Resultado from './Resultado'
-
+import Time from './Time'
+import Player from './Player'
 
 export default class Partida extends BaseModel {
 
-  @hasOne(() => Resultado, {
-    foreignKey: 'id_partida', // defaults to userId
-  })
-  public resultado: HasOne<typeof Resultado>
+  @belongsTo(() => Time)
+  public time: BelongsTo<typeof Time>
+
+  @belongsTo(() => Player)
+  public player: BelongsTo<typeof Player>
 
   @column({ isPrimary: true })
   public id: number
 
   @column()
   public nome: string
+
+  @column()
+  public id_resultado: number
 
   @column()
   public id_player1: number
@@ -33,6 +37,12 @@ export default class Partida extends BaseModel {
 
   @column()
   public id_time2: number
+
+  @column()
+  public golos_p1: number
+
+  @column()
+  public golos_p2: number
 
   @column()
   public estado: string

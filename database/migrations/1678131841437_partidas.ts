@@ -11,7 +11,6 @@ export default class extends BaseSchema {
       table.integer("id_time1").unsigned().references("times.id").onDelete("CASCADE")
       table.integer("id_player2").unsigned().references("players.id").onDelete("CASCADE")
       table.integer("id_time2").unsigned().references("times.id").onDelete("CASCADE")
-      table.string('estado').defaultTo('ativo')
       table.timestamps(true, true)
     })
   }

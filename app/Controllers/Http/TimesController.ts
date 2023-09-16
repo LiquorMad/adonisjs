@@ -46,8 +46,8 @@ export default class TimesController {
   public async update({params, request}: HttpContextContract) {
     try {
       const body = request.body()
-
-      const time = await Time.findOrFail(params.id)
+      const id = Number(params.id)
+      const time = await Time.findOrFail(id)
 
       time.nome = body.nome
 
@@ -63,16 +63,17 @@ export default class TimesController {
   }
 
   public async destroy({params}: HttpContextContract) {
+    console.log("destroy time")
     try {
-      const time = await Time.findOrFail(params.id)
+      const id = Number(params.id)
+      const time = await Time.findOrFail(id)
 
       await time.delete()
       
-      return{
-        message: 'Time eliminado com sucesso !'
-      }
-    } catch (error) {
+      return "Deleted successfully"  ;
       
+    } catch (error) {
+      return  "Deleted failed";
     }
   }
 }

@@ -47,9 +47,12 @@ export default class PlayersController {
 
   public async update({params, request}: HttpContextContract) {
     try {
+
       const body = request.body()
 
-      const player = await Player.findOrFail(params.id)
+      const id = Number(params.id);
+
+      const player = await Player.findOrFail(id)
 
       player.nome = body.nome
       player.apelido = body.apelido
@@ -67,15 +70,14 @@ export default class PlayersController {
 
   public async destroy({params}: HttpContextContract) {
     try {
-      const player = await Player.findOrFail(params.id)
-
+      const id = Number(params.id);
+      const player = await Player.findOrFail(id)
       await player.delete()
+
+      return "Deleted successfully"  ;
       
-      return{
-        message: 'Player eliminado com sucesso !'
-      }
     } catch (error) {
-      
+      return  "Deleted failed";
     }
   }
 }

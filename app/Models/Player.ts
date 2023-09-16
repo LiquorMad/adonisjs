@@ -1,7 +1,20 @@
 import { DateTime } from 'luxon'
-import { BaseModel, column } from '@ioc:Adonis/Lucid/Orm'
+import { BaseModel, HasOne, column, hasOne } from '@ioc:Adonis/Lucid/Orm'
+import Partida from './Partida'
 
 export default class Player extends BaseModel {
+
+  @hasOne(() => Partida, {
+    foreignKey: 'id_time1', // defaults to userId
+  })
+  public player1: HasOne<typeof Partida>
+
+  @hasOne(() => Partida, {
+    foreignKey: 'id_time2', // defaults to userId
+  })
+  public player2: HasOne<typeof Partida>
+  
+
   @column({ isPrimary: true })
   public id: number
 

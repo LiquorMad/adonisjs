@@ -1,6 +1,8 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import Database from '@ioc:Adonis/Lucid/Database';
 import Partida from 'App/Models/Partida';
+import Player from 'App/Models/Player';
+import Time from 'App/Models/Time';
 
 export default class PartidasController {
   
@@ -35,15 +37,13 @@ export default class PartidasController {
         const body = request.body()
         const id_time_1 = body.id_time_1
         const id_time_2 = body.id_time_2;
-        
-        //const  id_time_1 = await Time.findBy('nome',time_1)
-        //const  id_time_2 = await Time.findBy('nome',time_2)
-
-        const id_player_1 = body.id_player_1
+                const id_player_1 = body.id_player_1
         const id_player_2 = body.id_player_2
         console.log(id_player_1,id_player_2)
         //const  id_player_1 = await Player.findBy('nome',player_1)
         //const  id_player_2 = await Player.findBy('nome',player_2)
+        //const  id_time_1 = await Time.findBy('nome',time_1)
+        //const  id_time_2 = await Time.findBy('nome',time_2)
 
         const { nome } = request.body();
 
@@ -84,16 +84,25 @@ export default class PartidasController {
     try {
 
       const body = request.body()
-
+      const player_1 = body.player_1
+      const player_2 = body.player_2
+      const time_1 = body.time_1
+      const time_2 = body.time_2
       const id = Number(params.id);
 
       const partida = await Partida.findOrFail(id)
 
+      const  id_player_1 = await Player.findBy('nome',player_1)
+      
+      const  id_player_2 = await Player.findBy('nome',player_2)
+      const  id_time_1 = await Time.findBy('nome',time_1)
+      const  id_time_2 = await Time.findBy('nome',time_2)
+      
       partida.nome = body.nome
-      partida.id_player1 = body.id_player1
-      partida.id_player2 = body.id_player2
-      partida.id_time1 = body.id_time1
-      partida.id_time2 = body.id_time2
+      partida.id_player1 = Number(id_player_1?.id)
+      partida.id_player2 = Number(id_player_2?.id)
+      partida.id_time1 = Number(id_time_1?.id)
+      partida.id_time2 = Number(id_time_2?.id)
 
       await partida.save()
       return {

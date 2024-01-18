@@ -116,7 +116,6 @@ export default class PartidasController {
   }
 
   public async destroy({params}: HttpContextContract) {
-    console.log(params.id)
     try {
       const id = Number(params.id);
       const partida = await Partida.findOrFail(id)
@@ -125,7 +124,7 @@ export default class PartidasController {
       return "Deleted successfully"  ;
       
     } catch (error) {
-      return  "Deleted failed";
+      return  error.message;
     }
   }
 }

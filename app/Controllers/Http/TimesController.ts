@@ -73,7 +73,7 @@ export default class TimesController {
       return "Deleted successfully"  ;
       
     } catch (error) {
-      return  "Deleted failed";
+      return  error.message;
     }
   }
 }

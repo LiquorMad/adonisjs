@@ -85,7 +85,7 @@ export default class ResultadosController {
         message: 'Resultado eliminado com sucesso !'
       }
     } catch (error) {
-      
+      return error.message
     }
   }
 }

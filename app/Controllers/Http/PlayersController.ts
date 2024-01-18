@@ -77,7 +77,7 @@ export default class PlayersController {
       return "Deleted successfully"  ;
       
     } catch (error) {
-      return  "Deleted failed";
+      return  error.message;
     }
   }
 }
